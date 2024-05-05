@@ -20,3 +20,9 @@ class ConcurPy:
             return self.multiprocessing_wrapper(func)
         else:
             raise ValueError("Unsupported mode. Choose 'async', 'threading', or 'multiprocessing'.")
+
+    def async_wrapper(self, func):
+            @functools.wraps(func)
+            async def wrapped(*args, **kwargs):
+                return await asyncio.to_thread(func, *args, **kwargs)
+            return wrapped
