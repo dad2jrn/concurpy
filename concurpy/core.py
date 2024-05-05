@@ -28,5 +28,4 @@ class ConcurPy:
             self.logger.error(f"No handler available for {self.mode}")
             raise NotImplementedError(f"Handler for {self.mode} is not implemented")
 
-# The ConcurPy class can now use any of the specified handlers to manage concurrency,
-# with each handler designed for a specific model (async, threading, multiprocessing).
+##TODO: Docstrings and documentation
