@@ -39,4 +39,13 @@ class ConcurPy:
             thread.join()
             return result
         return wrapped
-    
+
+    def multiprocessing_wrapper(self, func):
+        @functools.wraps(func)
+        def wrapped(*args, **kwargs):
+            with multiprocessing.Pool(processes=self.workers) as pool:
+                result = pool.apply(func, args=args, kwds=kwargs)
+            return result
+        return wrapped
+
+    ##TODO  possible extending this class for additional functionality
