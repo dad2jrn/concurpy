@@ -26,3 +26,17 @@ class ConcurPy:
             async def wrapped(*args, **kwargs):
                 return await asyncio.to_thread(func, *args, **kwargs)
             return wrapped
+
+    def threading_wrapper(self, func):
+        @functools.wraps(func)
+        def wrapped(*args, **kwargs):
+            result = None
+            def target():
+                nonlocal result
+                result = func(*args, **kwargs)
+            thread = threading.Thread(target=target)
+            thread.start()
+            thread.join()
+            return result
+        return wrapped
+    
